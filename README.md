@@ -9,8 +9,9 @@
 Copy ./bash/custom_prompt.sh to the directory of your choice eg. ~/home/user and add the following to either your ~/.bashrc or ~/.bash_profile to include the prompt. Restart your terminal or run source ~/.bashrc for the changes to take effect.
 
 ```
-if [ -f ~/custom_prompt.sh ]; then
-    . ~/custom_prompt.sh
+if [ -f /path/to/automation/bash/custom_prompt.sh ]
+then
+    . /path/to/automation/bash/custom_prompt.sh
 fi
 ```
 
