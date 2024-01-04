@@ -24,7 +24,7 @@ chmod +x /path/to/automation/bash/custom_prompt.sh
 3. Restart your terminal or run the following command for the changes to take effect
 
 ```
-   > source ~/.bashrc
+   source ~/.bashrc
 ```
 
 ## Batch
