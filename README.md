@@ -6,7 +6,7 @@
 
 #### Instructions:
 
-Copy ./bash/custom_prompt.sh to the directory of your choice eg. ~/home/user and add the following to either your ~/.bashrc or ~/.bash_profile to include the prompt. Restart your terminal or run source ~/.bashrc for the changes to take effect.
+1. Copy ./bash/custom_prompt.sh to the directory of your choice eg. ~/home/user and add the following to either your ~/.bashrc or ~/.bash_profile to include the prompt.
 
 ```
 if [ -f /path/to/automation/bash/custom_prompt.sh ]
@@ -14,6 +14,11 @@ then
     . /path/to/automation/bash/custom_prompt.sh
 fi
 ```
+
+2. Allow the script to be executable with
+   > chmod +x /path/to/automation/bash/custom_prompt.sh
+3. Restart your terminal or run the following command for the changes to take effect
+   > source ~/.bashrc
 
 ## Batch
 
