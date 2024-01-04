@@ -7,9 +7,9 @@ function custom_prompt {
   GIT_IS_AVAILABLE=$?
 
   # Set Colors
-  local DIR_COLOR="\[\033[01;34m\]"
-  local GIT_COLOR="\[\033[00;90m\]"
-  local ARROW_COLOR="\[\033[01;35m\]"
+  local DIR_COLOR="\[\033[01;34m\]" # Blue
+  local GIT_COLOR="\[\033[00;90m\]" # Gray
+  local ARROW_COLOR="\[\033[01;35m\]" # Magenta
   local TEXT_COLOR="\[\033[00;00m\]" # White
 
   # Git Prompt Settings
