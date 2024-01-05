@@ -1,0 +1,40 @@
+Jan 05, 2024 11:23 AM | Backup Failed 
+ErrorCode: 11
+Error Message: rsync: [Receiver] mkdir "/mnt/home/michelle/Desktop" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(791) [Receiver=3.2.7]
+
+Jan 05, 2024 11:24 AM | Backup Failed 
+ErrorCode: 11
+Error Message: rsync: [Receiver] mkdir "/mnt/home/michelle/Desktop" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(791) [Receiver=3.2.7]
+
+Jan 05, 2024 - 11:24 AM | Backup Failed 
+ErrorCode: 11
+Error Message: rsync: [Receiver] mkdir "/mnt/home/michelle/Desktop" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(791) [Receiver=3.2.7]
+
+Jan 05, 2024 - 11:29 AM | Backup Failed 
+Error Code: 11
+Error Message: rsync: [Receiver] mkdir "/mnt/home/michelle/Desktop" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(791) [Receiver=3.2.7]
+
+Jan 05, 2024 - 11:33 AM | Backup Success
+Jan 05, 2024 - 11:44 AM | Backup Success
+Jan 05, 2024 - 11:57 AM | Backup Success
+Jan 05, 2024 - 11:57 AM | Backup Success
+Jan 05, 2024 - 12:00 PM | Backup Success
+Jan 05, 2024 - 12:06 PM | Backup Success
+Jan 05, 2024 - 12:06 PM | Backup Success
+Jan 05, 2024 - 12:09 PM | Backup Success
+Jan 05, 2024 - 12:14 PM | Backup Success
+Jan 05, 2024 - 12:14 PM | Backup Success
+Source: /home/michelle/Code/Scripts
+Destination: /home/michelle/Desktop/
+Jan 05, 2024 - 12:15 PM | Backup Success
+Source: /home/michelle/Code/Scripts
+Destination: /home/michelle/Desktop/
+
+Jan 05, 2024 - 12:15 PM | Backup Success
+Source: /home/michelle/Code/Scripts
+Destination: /home/michelle/Desktop/
+
