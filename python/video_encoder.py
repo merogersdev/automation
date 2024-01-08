@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.0
+# Version 1.1
 
 import os
 import re
@@ -11,19 +11,27 @@ def main():
   episode_regex='\w{1}\d{2}\w{1}\d{2}'
   year_regex='\d{4}'
   allowed_extensions = ['mkv', 'mp4']
-  roku_info = ".Roku.1080p.Surround.x264.mp4"
+  encoder_info = ".Roku.1080p.Surround.x264.mp4"
 
   def encode_video(input_file, output_file):
     ffmpeg_cmd = [
       "ffmpeg",
       "-i",
       input_file,
+      "-map",
+      "0",
       "-c:v",
       "libx264",
       "-preset",
       "medium",
       "-crf",
       "22",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "128k",
+      "-c:s",
+      "copy",
       "-n",
       output_file
     ]
@@ -44,7 +52,7 @@ def main():
   # Check if input folder exists, else create and exit
   if not (os.path.exists('in')):
     os.mkdir('in')
-    print("Input folder found. Creating folder. Please run again.")
+    print("Input folder found. Creating folder. Please add media and run again.")
     return
 
   # Make sure there are files to convert, else exit
@@ -64,18 +72,18 @@ def main():
 
     if(episode != None and ext in allowed_extensions):
       file_segments = re.split(episode_regex, file)
-      new_filename = f"{file_segments[0]}{episode.group()}{roku_info}"
+      new_filename = f"{file_segments[0]}{episode.group()}{encoder_info}"
       if (os.path.isfile(f"./out/{new_filename}")):
         print(f"./out/{new_filename} already exists. Skipping...")
-        return
-      encode_video(f"./in/{file}", f"./out/{new_filename}")
+      else:
+        encode_video(f"./in/{file}", f"./out/{new_filename}")
     elif(year != None and ext in allowed_extensions):
       file_segments = re.split(year_regex, file)
-      new_filename = f"{file_segments[0]}{year.group()}{roku_info}"
+      new_filename = f"{file_segments[0]}{year.group()}{encoder_info}"
       if (os.path.isfile(f"./out/{new_filename}")):
         print(f"./out/{new_filename} already exists. Skipping...")
-        return
-      encode_video(f"./in/{file}", f"./out/{new_filename}")
+      else:
+        encode_video(f"./in/{file}", f"./out/{new_filename}")
     else:
       print(file + " is not a valid video file. Skipping...")
 
