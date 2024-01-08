@@ -20,6 +20,8 @@ def main():
       input_file,
       "-map",
       "0",
+      "-map",
+      "-0:s",
       "-c:v",
       "libx264",
       "-preset",
@@ -39,10 +41,12 @@ def main():
     try:
       subprocess.run(ffmpeg_cmd, check=True)
       print(f"Encoding success for {output_file}")
+      os.remove(f"./in/{file}")
     except subprocess.CalledProcessError as e:
       print(f"Encoding failed for {output_file}")
       print(f"Return Code: {e.returncode}")
       print(f"Output: {e.output}")
+      os.remove(f"./out/{output_file}")
 
   # Make sure ffmpeg is installed
   if (which('ffmpeg') is None):
@@ -77,6 +81,7 @@ def main():
         print(f"./out/{new_filename} already exists. Skipping...")
       else:
         encode_video(f"./in/{file}", f"./out/{new_filename}")
+
     elif(year != None and ext in allowed_extensions):
       file_segments = re.split(year_regex, file)
       new_filename = f"{file_segments[0]}{year.group()}{encoder_info}"
@@ -84,6 +89,7 @@ def main():
         print(f"./out/{new_filename} already exists. Skipping...")
       else:
         encode_video(f"./in/{file}", f"./out/{new_filename}")
+        
     else:
       print(file + " is not a valid video file. Skipping...")
 
