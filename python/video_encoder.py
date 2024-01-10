@@ -10,7 +10,7 @@ from shutil import which
 def main():
   episode_regex='\w{1}\d{2}\w{1}\d{2}'
   year_regex='\d{4}'
-  allowed_extensions = ['mkv', 'mp4']
+  allowed_extensions = {'mkv', 'mp4'}
   encoder_info = ".Roku.1080p.Surround.x264.mp4"
 
   def encode_video(input_file, output_file):
