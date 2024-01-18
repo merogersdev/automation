@@ -7,10 +7,10 @@ function custom_prompt {
   GIT_IS_AVAILABLE=$?
 
   # Set Colors
-  local DIR_COLOR="\[\033[01;34m\]"
-  local GIT_COLOR="\[\033[00;90m\]"
-  local ARR_COLOR="\[\033[01;35m\]"
-  local TEXT_COLOR="\[\033[00;00m\]"
+  local DIR_COLOR="\[\033[01;34m\]" # Blue
+  local GIT_COLOR="\[\033[00;90m\]" # Gray
+  local ARROW_COLOR="\[\033[01;35m\]" # Magenta
+  local TEXT_COLOR="\[\033[00;00m\]" # White
 
   # Git Prompt Settings
   local GIT_FILES="GIT_PS1_SHOWUNTRACKEDFILES=1"
@@ -19,7 +19,7 @@ function custom_prompt {
   # Define Segments (Directory, Git Branch & Status, User Prompt)
   local DIRECTORY="$DIR_COLOR\w"
   local GIT_PROMPT="$GIT_COLOR\$($GIT_FILES $GIT_DIRTY __git_ps1)"
-  local USER_PROMPT="\n$ARR_COLOR❯ $TEXT_COLOR"
+  local USER_PROMPT="\n$ARROW_COLOR❯ $TEXT_COLOR"
 
   # Trim directory to only 1 level
   export PROMPT_DIRTRIM=1
