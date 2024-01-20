@@ -1,6 +1,14 @@
 #! /usr/bin/bash
 
-# Version 1.1
+# Version 1.2
+# Usage: Add custom prompt to your linux machine.
+# 1. Give execute permissions to prompt eg. chmod +x /path/to/prompt.sh 
+# 2. Add the following lines (without leading #s) to your ~/.bashrc or ~/.bash_profile to include prompt.
+
+# prompt=/path/to/prompt.sh
+# if [ -f $prompt ]; then . $prompt; fi
+
+# 3. Restart terminal for changes to take effect.
 
 function check_git_installed {
   if git --version &>/dev/null;
