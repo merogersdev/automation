@@ -11,6 +11,10 @@ display_message() {
     echo
 }
 
+get_latest_version() {
+    basename $(curl -fs -o/dev/null -w %{redirect_url} https://github.com/$1/releases/latest)
+}
+
 install_chrome() {
     display_message "Installing Chrome"
     wget -P ~/Downloads https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -34,7 +38,7 @@ install_vscode() {
 
 install_hack_nerd_font() {
     display_message "Installing Hack Nerd Font"
-    wget -P ~/Downloads https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    wget -P ~/Downloads https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
     sudo apt install unzip -y
     if [[ ! -d ~/.fonts/hack ]]; then
         mkdir -p ~/.fonts/hack
@@ -73,13 +77,9 @@ add_vscode_user_settings() {
 
 install_nvm() {
     display_message "Installing NVM"
-    nvm_string="nvm-sh/nvm"
-    git_latest_version() {
-        basename $(curl -fs -o/dev/null -w %{redirect_url} https://github.com/$1/releases/latest)
-    }
-    latest_version_number=$(git_latest_version "${nvm_string}");
-    wget -qO- https://raw.githubusercontent.com/${nvm_string}/${latest_version_number}/install.sh | bash
-    display_message "Done"
+    latest_version_number=$(get_latest_version "nvm-sh/nvm");
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${latest_version_number}/install.sh | bash
+    display_message "Done - Restart Terminal"
 }
 
 install_docker() {
