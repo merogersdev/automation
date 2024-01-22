@@ -1,37 +1,36 @@
 # Automation Scripts
 
+This repository stores my automation scripts. Each script has its own dedicated README file for further instructions
+
 ## Bash
 
-### Custom prompt with Git status detection
+### 1. Developer Environment (/bash/dev_setup/dev_setup.sh)
 
-#### Instructions:
+Automated installer for NVM, Docker, custom Bash Prompt, VS Code, popular VS Code extensions, VS Code user settings, Google Chrome, and the Hack Nerd Font on Ubuntu-based linux systems.
 
-1. Copy ./bash/custom_prompt.sh to the directory of your choice eg. ~/home/user and add the following to either your ~/.bashrc or ~/.bash_profile to include the prompt.
+[View Readme](https://github.com/merogersdev/automation/blob/main/bash/dev_setup/dev_setup.md)
 
-```
-if [ -f /path/to/automation/bash/custom_prompt.sh ]
-then
-    . /path/to/automation/bash/custom_prompt.sh
-fi
-```
+### 2. Custom Bash Prompt (/bash/prompt/prompt.sh)
 
-2. Allow the script to be executable with
+Custom bash prompt with git branch detection. Minimal and quick to load. Useful alternative to other more complex prompts.
 
-```
-chmod +x /path/to/automation/bash/custom_prompt.sh
-```
+[View Readme](https://github.com/merogersdev/automation/blob/main/bash/prompt/prompt.md)
 
-3. Restart your terminal or run the following command for the changes to take effect
+### 3. File Sync Script (/bash/sync/sync.sh)
 
-```
-   source ~/.bashrc
-```
+Based on rsync, this script features more robust log generation and can be easily called from CRON.
 
-## Batch
-
-## PowerShell
+[View Readme](https://github.com/merogersdev/automation/blob/main/bash/sync/sync.md)
 
 ## Python
+
+### 1. Backup Linux (/python/backup/backup.py)
+
+Platform-agnostic backup utilty. Coming Soon!
+
+### 2. Video Encoder (/python/encoder/encoder.py)
+
+Batch-processing video encoder. Can detect whether videos are a movie or tv episode, rename it with encoder data, and output to a separate directory. Beta.
 
 ## Tags
 
