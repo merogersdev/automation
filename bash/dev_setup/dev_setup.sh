@@ -129,7 +129,7 @@ main() {
     #install_nvm
     #install_docker
     #install_custom_prompt
-    display_message "Done Setup Script"
+    #display_message "Done Setup Script"
 }
 
 # Run Script
