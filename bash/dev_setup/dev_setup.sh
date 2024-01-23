@@ -34,7 +34,7 @@ install_vscode() {
 
 install_hack_nerd_font() {
     display_message "Installing Hack Nerd Font"
-    wget -P ~/Downloads https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    wget -P ~/Downloads https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
     sudo apt install unzip -y
     if [[ ! -d ~/.fonts/hack ]]; then
         mkdir -p ~/.fonts/hack
@@ -129,7 +129,7 @@ main() {
     #install_nvm
     #install_docker
     #install_custom_prompt
-    display_message "Done Setup Script"
+    #display_message "Done Setup Script"
 }
 
 # Run Script
