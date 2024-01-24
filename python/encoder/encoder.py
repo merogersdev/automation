@@ -118,12 +118,12 @@ def main():
     sys.exit(1)
 
   # check if in exists and there are files in it
-  if not os.path.exists(in_folder) or not in_folder[:-1] == "/":
+  if not os.path.exists(in_folder):
     print("Cannot read from input folder. Please recheck path and include trailing slash.") 
     sys.exit(1)
 
   # check for out folder
-  if not os.path.exists(out_folder) or not out_folder[:-1] == "/":
+  if not os.path.exists(out_folder):
     print("Cannot read from output folder. Please recheck path and include trailing slash.") 
     sys.exit(1)
 
