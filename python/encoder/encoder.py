@@ -97,7 +97,7 @@ def encode_all_videos_for_roku(in_folder, out_folder):
       encode_video_roku(os.path.join(in_folder,file), os.path.join(out_folder, new_filename))
       # Cleanup
       os.remove(os.path.join(in_folder,file))
-      print("Successfully encoded video {}.\n Original file {} deleted.".format(new_filename, file))
+      print("Successfully encoded video {}.\nOriginal file {} deleted.".format(new_filename, file))
 
   except subprocess.CalledProcessError as e:
     print("Error Code: ".format(e.returncode), "Details: ".format(e.output))
