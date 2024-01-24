@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 from shutil import which
+import sys
 
 def main():
   episode_regex='\w{1}\d{2}\w{1}\d{2}'
@@ -19,21 +20,33 @@ def main():
       "-i",
       input_file,
       "-map",
-      "0",
+      "0:0",
       "-map",
-      "-0:s",
+      "0:1",
+      "-map",
+      "0:1",
       "-c:v",
       "libx264",
       "-preset",
       "medium",
       "-crf",
       "22",
-      "-c:a",
+      "-map",
+      "0:a",
+      "-c:a:0",
       "aac",
-      "-b:a",
+      "-b:a:0",
       "128k",
+      "-ac:a:0",
+      "2",
+      "-c:a:1",
+      "ac3",
+      "-b:a:1",
+      "256k",
+      "-ac:a:1",
+      "6",
       "-c:s",
-      "copy",
+      "mov_text",
       "-n",
       output_file
     ]
@@ -41,28 +54,29 @@ def main():
     try:
       subprocess.run(ffmpeg_cmd, check=True)
       print(f"Encoding success for {output_file}")
-      os.remove(f"./in/{file}")
+      #os.remove(f"./in/{file}")
     except subprocess.CalledProcessError as e:
       print(f"Encoding failed for {output_file}")
       print(f"Return Code: {e.returncode}")
       print(f"Output: {e.output}")
       os.remove(f"./out/{output_file}")
+      sys.exit(1)
 
   # Make sure ffmpeg is installed
   if (which('ffmpeg') is None):
     print("Cannot find ffmpeg. Please install package.")
-    return
+    sys.exit(2)
 
   # Check if input folder exists, else create and exit
   if not (os.path.exists('in')):
     os.mkdir('in')
     print("Input folder found. Creating folder. Please add media and run again.")
-    return
+    sys.exit(3)
 
   # Make sure there are files to convert, else exit
   if(len(os.listdir('in')) == 0):
     print("No files found to encode. Exiting.")
-    return
+    sys.exit(4)
 
   # Create output folder if not found
   if not (os.path.exists('out')):
@@ -92,6 +106,7 @@ def main():
         
     else:
       print(file + " is not a valid video file. Skipping...")
+  sys.exit(0)
 
 # Allows importing as module without executing
 if __name__ == "__main__":
