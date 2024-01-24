@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.2
+# Version 1.3
 
 import os
 import re
@@ -119,12 +119,12 @@ def main():
 
   # check if in exists and there are files in it
   if not os.path.exists(in_folder):
-    print("Cannot read from input folder. Please recheck path and include trailing slash.") 
+    print("Cannot read from input folder. Please recheck path.") 
     sys.exit(1)
 
   # check for out folder
   if not os.path.exists(out_folder):
-    print("Cannot read from output folder. Please recheck path and include trailing slash.") 
+    print("Cannot read from output folder. Please recheck path.") 
     sys.exit(1)
 
   # loop through only video files and encode/rename/output to out dir
