@@ -11,4 +11,4 @@ Pass both the folder with videos and the folder to store the transcoded files. B
 1. Make script executable - eg.
    `chmod +x ./encoder.py`
 2. Run Script - eg.
-   `./encoder.py /in/folder /out/folder/`
+   `./encoder.py /in/folder/ /out/folder/`
