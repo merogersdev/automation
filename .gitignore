@@ -1,5 +1,8 @@
-python/encoder/in
-python/encoder/out
+in
+out
+src
+dest
 *.mkv
 *.txt
 *.log
+
