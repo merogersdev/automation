@@ -51,7 +51,7 @@ install_hack_nerd_font() {
 
 install_additional_packages() {
     display_message "Installing Additional Packages"
-    package_list=("curl" "vim" "ubuntu-restricted-extras")
+    package_list=("curl" "vim" "ubuntu-restricted-extras" "python3-psutil" "ffmpeg")
     sudo apt --ignore-missing -y install "${package_list[@]}"
     display_message "Done"
 }
@@ -120,16 +120,16 @@ EOF
 
 main() {
     display_message "Running Developer System Setup"
-    #install_chrome
-    #install_hack_nerd_font
-    #install_additional_packages
-    #install_vscode
-    #install_vscode_extensions
-    #add_vscode_user_settings
-    #install_nvm
-    #install_docker
-    #install_custom_prompt
-    #display_message "Done Setup Script"
+    install_chrome
+    install_hack_nerd_font
+    install_additional_packages
+    install_vscode
+    install_vscode_extensions
+    add_vscode_user_settings
+    install_nvm
+    install_docker
+    install_custom_prompt
+    display_message "Done Setup Script"
 }
 
 # Run Script
