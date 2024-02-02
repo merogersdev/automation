@@ -9,7 +9,7 @@ Gets and logs system health issues for Linux systems including internet connecti
 Out of the box, script provides health checks for enough free space on root, cpu load average, cpu temperature, internet connectivity, memory usage and reboot status for most systems. Can be run standalone or as a cron job.
 
 1. Clone repo or download individual script with `curl -O https://raw.githubusercontent.com/merogersdev/automation/main/python/healthcheck/healthcheck.py`
-1. Make script executable
+2. Make script executable
    `chmod +x ./healthcheck.py`
-1. Run script to generate a log of potential system issues.
+3. Run script to generate a log of potential system issues.
    `./healthcheck.py`
