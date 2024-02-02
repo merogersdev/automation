@@ -7,6 +7,7 @@ import socket
 import math
 import sys
 import logging
+import re
 
 
 def setup_logging(filename):
@@ -57,9 +58,49 @@ def check_cpu_loadavg(max_percent):
     return False
 
 
-def check_cpu_temp(max_temp):
+def check_cpu_temp_acpi(max_temp):
+    # Gets CPU Temp for ACPI Devices - Linux Only
     try:
         return psutil.sensors_temperatures()['acpitz'][0].current > max_temp
+    except:
+        return True
+
+
+def check_cpu_temp_pi(max_temp):
+    # Gets CPU Temp for Raspberry Pi - Linux Only
+    try:
+        return psutil.sensors_temperatures()['cpu_thermal'][0].current > max_temp
+    except:
+        return True
+
+
+def check_cpu_temp_generic(max_temp):
+    # Gets CPU Temp for any supported linux system. Relatively expensive function - Use if other cpu checks don't work.
+    rootdir = "/sys/class/thermal/"
+    regex = "thermal_zone\d{1}"
+
+    zones = []
+    temps = []
+
+    try:
+        # Get all thermal zones for system
+        for _, dirs, _ in os.walk(rootdir):
+            for dir in dirs:
+                if re.match(regex, dir):
+                    zones.append(dir)
+
+        # Get all temperature values in each zone
+        for zone in zones:
+            filename = f"{rootdir}{zone}/temp"
+            with open(filename, "r") as file:
+                for line in file:
+                    temps.append(int(line.strip()))
+
+        # Make sure no temps succeed max temp
+        for temp in temps:
+            if temp > max_temp:
+                return True
+        return False
     except:
         return True
 
@@ -119,8 +160,10 @@ def main():
         logger.warning(
             f"High CPU usage detected. Usage currently at {str(high_cpu_usage)}%")
 
-    # Check if CPU temp is below threshold or can be read
-    cpu_overheating = check_cpu_temp(90)
+    # Check if CPU temp (ACPI) is below threshold or can be read
+    cpu_overheating = check_cpu_temp_acpi(80)
+    # Check if CPU temp (Pi) is below threshold or can be read
+    # cpu_overheating = check_cpu_temp_pi(80)
     if cpu_overheating == True:
         logger.critical("CPU is overheating or value cannot be read.")
 
@@ -130,7 +173,7 @@ def main():
         logger.critical("No internet connectivity.")
 
     # Check overall system load
-    avgs = check_cpu_loadavg(30)
+    avgs = check_cpu_loadavg(70)
     if avgs != False:
         logger.warning(
             f"High CPU Usage: 1 Min: {avgs[0]}%, 5 Min: {avgs[1]}%, 15 Min: {avgs[2]}%")
