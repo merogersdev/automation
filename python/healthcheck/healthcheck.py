@@ -136,16 +136,15 @@ def get_disk_usage(disk):
 def main():
     logger = setup_logging("healthcheck.log")
 
-    # Gets usage for root disk, and logs GB
-    gb_free, gb_total, percent_free = get_disk_usage("/")
-    logger.info(f"Disk Usage on /: Free: {gb_free}GB | Total: {gb_total}GB")
+    # Gets usage for root disk
+    _, _, percent_free = get_disk_usage("/")
 
     # Warning log if free space less than 25%
-    if percent_free < 25:
+    if percent_free < 50:
         logger.warning(f"Free space on / is currently at {percent_free}%")
 
     # Critical log free space is less than 10%
-    if percent_free < 10:
+    if percent_free < 25:
         logger.critical(
             f"Free space on / is currently at {percent_free}%".format(percent_free))
 
@@ -162,8 +161,7 @@ def main():
 
     # Check if CPU temp (ACPI) is below threshold or can be read
     cpu_overheating = check_cpu_temp_acpi(80)
-    # Check if CPU temp (Pi) is below threshold or can be read
-    # cpu_overheating = check_cpu_temp_pi(80)
+
     if cpu_overheating == True:
         logger.critical("CPU is overheating or value cannot be read.")
 
@@ -177,6 +175,12 @@ def main():
     if avgs != False:
         logger.warning(
             f"High CPU Usage: 1 Min: {avgs[0]}%, 5 Min: {avgs[1]}%, 15 Min: {avgs[2]}%")
+
+    # Checks overall memory usage
+    memory_usage = check_memory_usage(70)
+    if memory_usage == True:
+        logger.warning("High memory usage detected.")
+
     return 0
 
 
