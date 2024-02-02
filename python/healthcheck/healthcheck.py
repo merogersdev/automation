@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+# Version 1.0
+
 import os
 import psutil
 import shutil
