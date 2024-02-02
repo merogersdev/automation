@@ -38,6 +38,7 @@ function custom_prompt {
 
   # Define Segments (Directory, Git Branch & Status, User Prompt)
   local DIRECTORY="$DIR_COLOR\w"
+  #local GIT_PROMPT="$GIT_COLOR\$($GIT_FILES $GIT_DIRTY __git_ps1)"
   local GIT_PROMPT="$GIT_COLOR\$($GIT_FILES $GIT_DIRTY __git_ps1)"
   local USER_PROMPT="\n$ARROW_COLOR❯ $TEXT_COLOR"
 
