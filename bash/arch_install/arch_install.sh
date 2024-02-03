@@ -1,7 +1,8 @@
 #! /bin/bash
 
-# Version 2.0
+# Version 2.1
 # Arch Linux Installation Script
+# Last tested with: archlinux-2024.02.01-x86_64.iso 
 
 status_message() {
     # Fancy colored status message
@@ -26,6 +27,7 @@ status_message() {
 }
 
 check_efi_mode() {
+    # Check for EFI mode, else script will exit
     if [ "$(ls -A /sys/firmware/efi/efivars)" ]; then
         status_message "success" "EFI Mode detected. Proceeding with install"
     else
@@ -35,6 +37,7 @@ check_efi_mode() {
 }
 
 test_internet_connection() {
+    # Makes sure there is an internet connection available to download packages
     if nc -zw1 google.ca 80; then
         status_message "success" "Internet connection detected"
     else
@@ -107,7 +110,7 @@ install_base_packages() {
 }
 
 install_additional_packages() {
-    # Installs additional packages
+    # Installs additional packages and utilities beyond the base system
     status_message "info" "Installing additional packages"
 
     packages=(
@@ -133,13 +136,12 @@ install_additional_packages() {
     "inetutils"
     )
 
-    #pacstrap /mnt "${packages[@]}"
     arch-chroot /mnt pacman -S --noconfirm --needed "${packages[@]}"
     status_message "success" "Done"
 }
 
 generate_fstab()  {
-    # Generates mount info file
+    # Saves mountpoints to FSTAB file
     status_message "info" "Generating FSTAB"
     genfstab -U /mnt >> /mnt/etc/fstab
     status_message "success" "Done"
@@ -186,7 +188,7 @@ set_hostname() {
 }
 
 install_grub_bootloader() {
-    # Installs Grub Boot Loader
+    # Installs Grub Boot Loader in EFI Mode
     status_message "info" "Installing Grub"
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
     sed -i "s/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/" /mnt/etc/default/grub
@@ -236,7 +238,7 @@ set_root_password() {
 }
 
 install_kde_desktop() {
-    # Installs packages typical of a minimal KDE Plasma Desktop, and enables display manager
+    # Installs packages typical of a minimal KDE Plasma Desktop, and enables SDDM display manager
     status_message "info" "Install KDE Plasma Desktop Environment"
 
     kde_packages=(
@@ -269,24 +271,15 @@ install_kde_desktop() {
     status_message "success" "Done"
 }
 
-# TODO: Test Gnome
 install_gnome_desktop() {
-    # Installs packages typical of a minimal Gnome Desktop, and enables display manager
+    # Installs packages typical of a Gnome Desktop, and enables GDM display manager
     status_message "info" "Installing Gnome Desktop Environment"
 
     gnome_packages=(
-        "gnome-shell" 
-        "nautilus"
-        "gnome-terminal"
-        "fragments"
+        "gnome"
         "gedit"
-        "gnome-calendar"
-        "gnome-desktop"
-        "gnome-keyring"
-        "gnome-session"
-        "gnome-disk-utility"
-        "gnome-control-center"
-        "gnome-software"
+        "gnome-multi-writer"
+        "fragments"
         "firefox"
         "flatpak"
         "gdm")
@@ -297,6 +290,7 @@ install_gnome_desktop() {
 }
 
 pacman_tweaks() {
+    # Adds parallel downloads and some visual flair to pacman
     pacman_conf="/mnt/etc/pacman.conf"
     status_message "info" "Tweaks for Pacman"
     sudo sed -i "/#ParallelDownloads = 5/c\ParallelDownloads = 10" $pacman_conf
