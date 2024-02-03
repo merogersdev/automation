@@ -2,7 +2,7 @@
 
 ## Summary
 
-Arch Linux automated installation script, written in Bash. Can select from Gnome or KDE as desktop environment. For security purposes, will prompt at the end for user and root passwords.
+Arch Linux automated installation script, written in Bash. Select from Gnome OR KDE OR no desktop environment. Multiple desktop environments is discouraged. For security purposes, script will prompt at the end for user and root passwords. NOTE: Script will only run in EFI Mode.
 
 ## Usage
 
