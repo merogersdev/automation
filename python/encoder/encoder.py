@@ -45,8 +45,12 @@ def encode_video_roku(input_file, output_file):
         "256k",
         "-ac:a:1",
         "6",
-        "-c:s",
-        "mov_text",
+        "-metadata",
+        "title='Roku'",
+        "-map",
+        "-0:s",
+        # "-c:s",
+        # "mov_text",
         "-n",
         output_file
     ]
