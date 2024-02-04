@@ -22,7 +22,7 @@ Automated installer for NVM, Docker, custom Bash Prompt, VS Code, popular VS Cod
 
 Custom bash prompt with git branch detection. Minimal and quick to load. Useful alternative to other more complex prompts.
 
-[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/prompt/prompt.md)
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/prompt/prompt.sh)
 [README](https://github.com/merogersdev/automation/blob/main/bash/prompt/prompt.md)
 
 ### File Sync Script
@@ -50,7 +50,7 @@ Batch-processing video encoder. Can detect whether videos are a movie or tv epis
 Gets and logs system health issues for Linux systems including internet connectivity, cpu load average, cpu temperature, disk usage, reboot status, memory usage and swap usage.
 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/healthcheck/healthcheck.py)
-[README](https://github.com/merogersdev/automation/tree/main/python/healthcheck)
+[README](https://github.com/merogersdev/automation/blob/main/python/healthcheck/README.md)
 
 ### Multisync
 
