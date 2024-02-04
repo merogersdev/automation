@@ -1,36 +1,63 @@
 # Automation Scripts
 
-This repository stores my automation scripts. Each script has its own dedicated README file for further instructions
+This repository stores my automation scripts. Each script has its own dedicated README file for further instructions.
 
 ## Bash
 
-### 1. Developer Environment (/bash/dev_setup/dev_setup.sh)
+### Arch Linux Installation Script
+
+Automated installation script to install Arch Linux, with choice of Gnome or KDE desktop environments. Includes several QOL tweaks and will prompt for passwords at the end.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/arch_install/arch_install.sh)
+[README](https://github.com/merogersdev/automation/blob/main/bash/arch_install/README.md)
+
+### Developer Environment Setup
 
 Automated installer for NVM, Docker, custom Bash Prompt, VS Code, popular VS Code extensions, VS Code user settings, Google Chrome, and the Hack Nerd Font on Ubuntu-based linux systems.
 
-[View Readme](https://github.com/merogersdev/automation/blob/main/bash/dev_setup/dev_setup.md)
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/dev_setup/dev_setup.sh)
+[README](https://github.com/merogersdev/automation/blob/main/bash/dev_setup/dev_setup.md)
 
-### 2. Custom Bash Prompt (/bash/prompt/prompt.sh)
+### Custom Bash Prompt
 
 Custom bash prompt with git branch detection. Minimal and quick to load. Useful alternative to other more complex prompts.
 
-[View Readme](https://github.com/merogersdev/automation/blob/main/bash/prompt/prompt.md)
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/prompt/prompt.md)
+[README](https://github.com/merogersdev/automation/blob/main/bash/prompt/prompt.md)
 
-### 3. File Sync Script (/bash/sync/sync.sh)
+### File Sync Script
 
 Based on rsync, this script features more robust log generation and can be easily called from CRON.
 
-[View Readme](https://github.com/merogersdev/automation/blob/main/bash/sync/sync.md)
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/sync/sync.sh)
+[README](https://github.com/merogersdev/automation/blob/main/bash/sync/sync.md)
 
 ## Python
 
-### 1. Backup Linux (/python/backup/backup.py)
+### Backup Linux
 
 Platform-agnostic backup utilty. Coming Soon!
 
-### 2. Video Encoder (/python/encoder/encoder.py)
+### Video Encoder
 
-Batch-processing video encoder. Can detect whether videos are a movie or tv episode, rename it with encoder data, and output to a separate directory. Beta.
+Batch-processing video encoder. Can detect whether videos are a movie or tv episode, rename it with encoder data, and output to a separate directory.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/encoder/encoder.py)
+[README](https://github.com/merogersdev/automation/blob/main/python/encoder/encoder.md)
+
+### Health Check
+
+Gets and logs system health issues for Linux systems including internet connectivity, cpu load average, cpu temperature, disk usage, reboot status, memory usage and swap usage.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/healthcheck/healthcheck.py)
+[README](https://github.com/merogersdev/automation/tree/main/python/healthcheck)
+
+### Multisync
+
+Multithreaded rsync script, written in Python. Script provides a more efficient utilization of modern CPUs by spawning concurrent processes of rsync for faster file sync and backups. Includes logging.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/multisync/multisync.py)
+[README](https://github.com/merogersdev/automation/blob/main/python/multisync/README.md)
 
 ## Tags
 
