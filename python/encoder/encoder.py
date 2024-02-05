@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.3
+# Version 1.4
 
 import os
 import re
@@ -11,62 +11,42 @@ import sys
 
 def encode_video_roku(input_file, output_file):
     # Encode video for Roku Devices
-    # Video: x264 preset medium crf 22
+    # Video: x264 8-bit crf 22
     # Audio Track 1: aac stereo 128k
-    # Audio Track 2: ac3 5.1 256k
-    # Subtitle Track: mov_text
-    # ffmpeg_cmd = [
-    #     "ffmpeg",
-    #     "-i",
-    #     input_file,
-    #     "-map",
-    #     "0:0",
-    #     "-map",
-    #     "0:1",
-    #     "-map",
-    #     "0:1",
-    #     "-c:v",
-    #     "libx264",
-    #     "-preset",
-    #     "medium",
-    #     "-crf",
-    #     "22",
-    #     "-map",
-    #     "0:a",
-    #     "-c:a:0",
-    #     "aac",
-    #     "-b:a:0",
-    #     "128k",
-    #     "-ac:a:0",
-    #     "2",
-    #     "-c:a:1",
-    #     "ac3",
-    #     "-b:a:1",
-    #     "256k",
-    #     "-ac:a:1",
-    #     "6",
-    #     "-metadata",
-    #     "title='Roku'",
-    #     "-map",
-    #     "-0:s",
-    #     # "-c:s",
-    #     # "mov_text",
-    #     "-n",
-    #     output_file
-    # ]
+    # Audio Track 2: aac 5.1 256k
+    # Subtitle Track: Passthrough
 
     ffmpeg_cmd = [
         "ffmpeg",
         "-i",
         input_file,
+        "-map",
+        "0:0",
+        "-map",
+        "0:1",
         "-c:v",
         "libx264",
-        "-c:a",
-        "libvo_aacenc",
-        "-ac"
+        "-crf",
+        "22",
+        "-vf",
+        "format=yuv420p",
+        "-map",
+        "0:a",
+        "-c:a:0",
+        "aac",
+        "-b:a:0",
+        "128k",
+        "-ac:a:0",
+        "2",
+        "-c:a:1",
+        "aac",
+        "-b:a:1",
+        "256k",
+        "-ac:a:1",
+        "6",
+        "-n",
+        output_file
     ]
-
-    """ffmpeg -i ./in/"Bob's Burgers (2011) S13E01 To Bob, or Not to Bob (1080p HULU Webrip x265 10bit EAC3 5.1 - Goki)[TAoE].mkv" -map 0:0 -map 0:1 -c:v libx264 -crf 22 -vf format=yuv420p -map 0:a -c:a:0 aac -b:a:0 128k -ac:a:0 2 -c:a:1 aac -b:a:1 256k -ac:a:1 6  ./out/Bobs.Burgers.S13E01.m4v"""
 
     # Run ffmpeg encode as Subprocess
     subprocess.run(ffmpeg_cmd, check=True)
