@@ -75,29 +75,31 @@ def rename_video(file, encoder_info):
     year = re.search(year_regex, file)
     special_regex = r"[^\w\d\.]*"
 
+    replacements = [
+        (" ", "."),
+        (special_regex, "")
+    ]
+
     if episode != None:
         file_segments = re.split(episode_regex, file)
         new_title = file_segments[0]
-        replacements = [
-            (" ", "."),
-            (special_regex, "")
-        ]
-
         for old, new in replacements:
             new_title = re.sub(old, new, new_title)
-
         return f"{new_title}{episode.group()}{encoder_info}"
     file_segments = re.split(year_regex, file)
-    return f"{file_segments[0]}{year.group()}{encoder_info}"
+    new_title = file_segments[0]
+    for old, new in replacements:
+        new_title = re.sub(old, new, new_title)
+    return f"{new_title}{year.group()}{encoder_info}"
 
 
 def get_resolution(filename):
     # Looks for HD formats in file or returns a . for standard/unknown definition so filename can be structured correctly
     hd_regex = r"\.?(1080p|720p|2160p|4[kK])\.?"
     has_resolution = re.search(hd_regex, filename)
-    resolution = has_resolution.group()
 
     if has_resolution != None:
+        resolution = has_resolution.group()
         resolution = re.sub(r"\.", "", resolution)
         return f".{resolution}."
     return "."
