@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.4
+# Version 1.5
 
 import os
 import re
@@ -53,28 +53,43 @@ def encode_video_roku(input_file, output_file):
 
 
 def rename_video(file, encoder_info):
-    episode_regex = '\w{1}\d{2}\w{1}\d{2}'
+    # Renames video based on type of file - eg. tv episode or video
+    episode_regex = r"\w{1}\d{2}\w{1}\d{2}"
     episode = re.search(episode_regex, file)
-
-    year_regex = '\d{4}'
+    year_regex = r"\d{4}"
     year = re.search(year_regex, file)
+    special_regex = r"[^\w\d\.]*"
 
     if episode != None:
         file_segments = re.split(episode_regex, file)
-        return f"{file_segments[0]}{episode.group()}{encoder_info}"
+        new_title = file_segments[0]
+        replacements = [
+            (" ", "."),
+            (special_regex, "")
+        ]
+
+        for old, new in replacements:
+            new_title = re.sub(old, new, new_title)
+
+        return f"{new_title}{episode.group()}{encoder_info}"
     file_segments = re.split(year_regex, file)
     return f"{file_segments[0]}{year.group()}{encoder_info}"
 
 
 def get_resolution(filename):
-    has_resolution = re.search(r"\.\d{3,4}p\.", filename)
+    # Looks for HD formats in file or returns a . for standard/unknown definition so filename can be structured correctly
+    hd_regex = r"\.?(1080p|720p|2160p|4[kK])\.?"
+    has_resolution = re.search(hd_regex, filename)
+    resolution = has_resolution.group()
 
     if has_resolution != None:
-        return has_resolution.group()[1:-1]
+        resolution = re.sub(r"\.", "", resolution)
+        return f".{resolution}."
     return "."
 
 
 def sort_files(directory):
+    # Sorts files alphabetically
     with os.scandir(directory) as entries:
         sorted_entries = sorted(entries, key=lambda entry: entry.name)
         sorted_items = [entry.name for entry in sorted_entries]
@@ -86,27 +101,26 @@ def encode_all_videos_for_roku(in_folder, out_folder):
         for file in sort_files(in_folder):
             # Skip if it isn't a video file
             if not file.endswith(('mkv', 'mp4', 'm4v')):
-                print("{} is not a recognised video file. Skipping.".format(file))
+                print(f"{file} is not a recognised video file. Skipping.")
                 continue
 
             resolution = get_resolution(file)
             new_filename = rename_video(
-                file, ".Roku.{}.Surround.x264.mp4".format(resolution))
+                file, f".Roku{resolution}Surround.x264.mp4")
             # Check if file is already encoded
             if (os.path.exists(os.path.join(out_folder, new_filename))):
-                print("{} already encoded. Skipping".format(file))
+                print(f"{file} already encoded. Skipping")
                 continue
             # Encode video
             encode_video_roku(os.path.join(in_folder, file),
                               os.path.join(out_folder, new_filename))
             # Cleanup
             os.remove(os.path.join(in_folder, file))
-            print("Successfully encoded video {}.\nOriginal file {} deleted.".format(
-                new_filename, file))
+            print(
+                f"Successfully encoded video {new_filename}.\nOriginal file {file} deleted.")
 
     except subprocess.CalledProcessError as e:
-        print("Error Code: ".format(e.returncode),
-              "Details: ".format(e.output))
+        print(f"Error Details: {e.output}")
         sys.exit(e.returncode)
 
 
