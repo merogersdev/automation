@@ -43,7 +43,7 @@ Platform-agnostic backup utilty. Coming Soon!
 Batch-processing video encoder. Can detect whether videos are a movie or tv episode, rename it with encoder data, and output to a separate directory.
 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/encoder/encoder.py)
-[README](https://github.com/merogersdev/automation/blob/main/python/encoder/encoder.md)
+[README](https://github.com/merogersdev/automation/blob/main/python/encoder/README.md)
 
 ### Health Check
 
