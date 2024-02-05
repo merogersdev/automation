@@ -1,12 +1,27 @@
 #! /usr/bin/env python3
 
-# Version 1.5
+# Version 1.6
 
 import os
 import re
 import subprocess
 from shutil import which
 import sys
+import logging
+
+
+def setup_logger(name):
+    log_format = "%(levelname)s | %(asctime)s | %(message)s"
+    date_format = "%Y-%m-%d %I:%M %p"
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    filehandler = logging.FileHandler("encoder.log")
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter(log_format, date_format)
+    handler.setFormatter(formatter)
+    filehandler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.addHandler(filehandler)
 
 
 def encode_video_roku(input_file, output_file):
@@ -96,12 +111,13 @@ def sort_files(directory):
     return sorted_items
 
 
-def encode_all_videos_for_roku(in_folder, out_folder):
+def encode_all_videos_for_roku(in_folder, out_folder, logger):
     try:
         for file in sort_files(in_folder):
             # Skip if it isn't a video file
             if not file.endswith(('mkv', 'mp4', 'm4v')):
-                print(f"{file} is not a recognised video file. Skipping.")
+                logger.info(
+                    f"{file} is not a recognised video file. Skipping.")
                 continue
 
             resolution = get_resolution(file)
@@ -109,25 +125,30 @@ def encode_all_videos_for_roku(in_folder, out_folder):
                 file, f".Roku{resolution}Surround.x264.mp4")
             # Check if file is already encoded
             if (os.path.exists(os.path.join(out_folder, new_filename))):
-                print(f"{file} already encoded. Skipping")
+                logger.info(f"{file} already encoded. Skipping")
                 continue
             # Encode video
             encode_video_roku(os.path.join(in_folder, file),
                               os.path.join(out_folder, new_filename))
             # Cleanup
             os.remove(os.path.join(in_folder, file))
-            print(
+            logger.info(
                 f"Successfully encoded video {new_filename}.\nOriginal file {file} deleted.")
 
     except subprocess.CalledProcessError as e:
-        print(f"Error Details: {e.output}")
+        logger.error(f"Error Details: {e.output}")
         sys.exit(e.returncode)
 
 
 def main():
+    # Setup logging
+    setup_logger('Encoder')
+    logger = logging.getLogger('Encoder')
+
     # Check for correct number of arguments
     if len(sys.argv) != 3:
-        print("Invalid arguments specified.\nUsage: ./encoder.py /in/folder/ /out/folder")
+        logger.critical(
+            "Invalid arguments specified.\nUsage: ./encoder.py /in/folder/ /out/folder")
         sys.exit(1)
 
     in_folder = sys.argv[1]
@@ -135,21 +156,21 @@ def main():
 
     # check ffmpeg
     if which("ffmpeg") is None:
-        print("Cannot find ffmpeg. Please install package.")
+        logger.critical("Cannot find ffmpeg. Please install package.")
         sys.exit(1)
 
     # check if in exists and there are files in it
     if not os.path.exists(in_folder):
-        print("Cannot read from input folder. Please recheck path.")
+        logger.critical("Cannot read from input folder. Please recheck path.")
         sys.exit(1)
 
     # check for out folder
     if not os.path.exists(out_folder):
-        print("Cannot read from output folder. Please recheck path.")
+        logger.critical("Cannot read from output folder. Please recheck path.")
         sys.exit(1)
 
     # loop through only video files and encode/rename/output to out dir
-    encode_all_videos_for_roku(in_folder, out_folder)
+    encode_all_videos_for_roku(in_folder, out_folder, logger)
 
     sys.exit(0)
 
