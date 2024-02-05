@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.3
+# Version 1.4
 
 import os
 import re
@@ -11,10 +11,11 @@ import sys
 
 def encode_video_roku(input_file, output_file):
     # Encode video for Roku Devices
-    # Video: x264 preset medium crf 22
+    # Video: x264 8-bit crf 22
     # Audio Track 1: aac stereo 128k
-    # Audio Track 2: ac3 5.1 256k
-    # Subtitle Track: mov_text
+    # Audio Track 2: aac 5.1 256k
+    # Subtitle Track: Passthrough
+
     ffmpeg_cmd = [
         "ffmpeg",
         "-i",
@@ -23,14 +24,12 @@ def encode_video_roku(input_file, output_file):
         "0:0",
         "-map",
         "0:1",
-        "-map",
-        "0:1",
         "-c:v",
         "libx264",
-        "-preset",
-        "medium",
         "-crf",
         "22",
+        "-vf",
+        "format=yuv420p",
         "-map",
         "0:a",
         "-c:a:0",
@@ -40,13 +39,11 @@ def encode_video_roku(input_file, output_file):
         "-ac:a:0",
         "2",
         "-c:a:1",
-        "ac3",
+        "aac",
         "-b:a:1",
         "256k",
         "-ac:a:1",
         "6",
-        "-c:s",
-        "mov_text",
         "-n",
         output_file
     ]
