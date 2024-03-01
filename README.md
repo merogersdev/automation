@@ -45,6 +45,13 @@ Batch-processing video encoder. Can detect whether videos are a movie or tv epis
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/encoder/encoder.py)
 [README](https://github.com/merogersdev/automation/blob/main/python/encoder/README.md)
 
+### Image Resize
+
+Batch image resizing script. Resizes images in a given folder, and outputs the resized file with dimensions eg. screenshot_1920x1080.png to a separate directory. Can be run with built-in defaults or with optional flags for input directory, output directory, image width and image length/height.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/image/resize/image_resize.py)
+[README](https://github.com/merogersdev/automation/blob/main/python/image/resize/README.md)
+
 ### Health Check
 
 Gets and logs system health issues for Linux systems including internet connectivity, cpu load average, cpu temperature, disk usage, reboot status, memory usage and swap usage.
