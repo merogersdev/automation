@@ -66,6 +66,15 @@ Multithreaded rsync script, written in Python. Script provides a more efficient 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/multisync/multisync.py)
 [README](https://github.com/merogersdev/automation/blob/main/python/multisync/README.md)
 
+## PowerShell
+
+### Backup Script (Windows)
+
+Simple PowerShell script to backup files from one directory to another. Script runs multithreaded, depending on how many virtual processors are available. Errors are logged when they happen.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/powershell/backup/backup.ps1)
+[README](https://github.com/merogersdev/automation/blob/main/powershell/backup/README.md)
+
 ## Tags
 
 ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white)
