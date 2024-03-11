@@ -36,42 +36,55 @@ def convert_bytes_to_gigabytes(bytes):
 
 def check_reboot_status():
     # Checks if system requires reboot
-    return os.path.exists("/run/reboot-required")
+    try:
+        reboot = os.path.exists("/run/reboot-required")
+        return reboot
+    except:
+        return False
 
 
 def check_cpu_threshold(max_percent):
     # Checks to see if cpu is below threshold
-    return psutil.cpu_percent(1) > max_percent
+    try:
+        usage = psutil.cpu_percent(1)
+        return usage > max_percent, usage
+    except:
+        return True
 
 
 def check_cpu_loadavg(max_percent):
     # Checks cpu load average is below threshold for 1,5,15 Min intervals
-    cpu_count = psutil.cpu_count()
-    avgs = [percent / cpu_count * 100 for percent in psutil.getloadavg()]
 
-    # Round
-    roundavgs = [round(avg) for avg in avgs]
+    try:
+        cpu_count = psutil.cpu_count()
+        avgs = [percent / cpu_count * 100 for percent in psutil.getloadavg()]
 
-    # Returns True if any load threshold is reached
-    for avg in roundavgs:
-        if avg > max_percent:
-            return roundavgs
+        # Round
+        roundavgs = [round(avg) for avg in avgs]
 
-    return False
+        # Returns True if any load threshold is reached
+        for avg in roundavgs:
+            if avg > max_percent:
+                return True, roundavgs
+        return False, roundavgs
+    except:
+        return True, 0
 
 
 def check_cpu_temp_acpi(max_temp):
     # Gets CPU Temp for ACPI Devices - Linux Only
     try:
-        return psutil.sensors_temperatures()['acpitz'][0].current > max_temp
+        temp = psutil.sensors_temperatures()['acpitz'][0].current
+        return temp > max_temp, temp
     except:
-        return True
+        return True, 0
 
 
 def check_cpu_temp_pi(max_temp):
     # Gets CPU Temp for Raspberry Pi - Linux Only
     try:
-        return psutil.sensors_temperatures()['cpu_thermal'][0].current > max_temp
+        temp = psutil.sensors_temperatures()['cpu_thermal'][0].current
+        return temp > max_temp, temp
     except:
         return True
 
@@ -98,29 +111,40 @@ def check_cpu_temp_generic(max_temp):
                 for line in file:
                     temps.append(int(line.strip()))
 
+        print(temps)
+
         # Make sure no temps succeed max temp
         for temp in temps:
             if temp > max_temp:
-                return True
-        return False
+                return True, temps
+        return False, temps
     except:
         return True
 
 
 def check_memory_usage(max_percent):
     # Checks if system memory usage is below threshold
-    return psutil.virtual_memory().percent > max_percent
+    try:
+        usage = psutil.virtual_memory().percent
+        return usage > max_percent, usage
+    except:
+        return True, 0
 
 
 def check_swap_usage(max_percent):
     # Checks swap area usage is below threshold
-    return psutil.swap_memory().percent > max_percent
+    try:
+        usage = psutil.swap_memory().percent
+        return usage > max_percent, usage
+    except:
+        return True, 0
 
 
-def check_internet_connectivity(url):
+def check_internet_connectivity(host, port, timeout):
     # Checks for connectivity to given URL
     try:
-        socket.gethostbyname(url)
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
         return False
     except:
         return True
@@ -133,6 +157,16 @@ def get_disk_usage(disk):
     gb_total = convert_bytes_to_gigabytes(usage.total)
     percent_free = math.floor(100 * usage.free / usage.total)
     return gb_free, gb_total, percent_free
+
+
+def check_disk_usage(disk, max_percent):
+    try:
+        gb_free, gb_total, percent_free = get_disk_usage(disk)
+        total_used = gb_total - gb_free
+        percent_used = math.floor(100 * (total_used / gb_total))
+        return percent_used > max_percent, percent_free, percent_used, gb_free, gb_total
+    except:
+        return True, 0, 0, 0
 
 
 def main():
@@ -156,32 +190,33 @@ def main():
         logger.warning("System requires reboot")
 
     # Checks CPU usage is below threshold, warning log if not
-    high_cpu_usage = check_cpu_threshold(70)
-    if high_cpu_usage == True:
+    cpu_usage_over, cpu_usage = check_cpu_threshold(70)
+    if cpu_usage_over == True:
         logger.warning(
-            f"High CPU usage detected. Usage currently at {str(high_cpu_usage)}%")
+            f"High CPU usage detected. Usage currently at {str(cpu_usage)}%")
 
     # Check if CPU temp (ACPI) is below threshold or can be read
-    cpu_overheating = check_cpu_temp_acpi(80)
+    cpu_overheating, cpu_temp = check_cpu_temp_acpi(80)
 
     if cpu_overheating == True:
-        logger.critical("CPU is overheating or value cannot be read.")
+        logger.critical(
+            f"CPU temperature is currently: {cpu_temp}. Either CPU is overheating or value cannot be read.")
 
     # Checks internet connectivity
-    is_connected = check_internet_connectivity("https://google.ca")
+    is_connected = check_internet_connectivity("https://google.ca", 443, 1)
     if not is_connected:
         logger.critical("No internet connectivity.")
 
     # Check overall system load
-    avgs = check_cpu_loadavg(70)
-    if avgs != False:
+    cpu_avg_over, cpu_avgs = check_cpu_loadavg(70)
+    if cpu_avg_over != False:
         logger.warning(
-            f"High CPU Usage: 1 Min: {avgs[0]}%, 5 Min: {avgs[1]}%, 15 Min: {avgs[2]}%")
+            f"High CPU Usage: 1 Min: {cpu_avgs[0]}%, 5 Min: {cpu_avgs[1]}%, 15 Min: {cpu_avgs[2]}%")
 
     # Checks overall memory usage
-    memory_usage = check_memory_usage(70)
-    if memory_usage == True:
-        logger.warning("High memory usage detected.")
+    memory_usage_over, memory_usage = check_memory_usage(70)
+    if memory_usage_over == True:
+        logger.warning(f"Memory usage is currently: {memory_usage}%")
 
     return 0
 
