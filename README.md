@@ -52,9 +52,9 @@ Batch image resizing script. Resizes images in a given folder, and outputs the r
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/image/resize/image_resize.py)
 [README](https://github.com/merogersdev/automation/blob/main/python/image/resize/README.md)
 
-### Health Check
+### Health Check (Script and Docker Dashboard)
 
-Gets and logs system health issues for Linux systems including internet connectivity, cpu load average, cpu temperature, disk usage, reboot status, memory usage and swap usage.
+Gets and logs system health issues for Linux systems including internet connectivity, cpu load average, cpu temperature, disk usage, reboot status, memory usage and swap usage. Can be run as a standalone script, or as a service via included dockerfile.
 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/healthcheck/healthcheck.py)
 [README](https://github.com/merogersdev/automation/blob/main/python/healthcheck/README.md)

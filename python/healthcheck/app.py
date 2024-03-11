@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# Version 1.0
+# Version 1.1
 
 from flask import Flask
 from dashboard import dashboard

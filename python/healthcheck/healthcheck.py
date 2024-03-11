@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.0
+# Version 1.1
 
 import os
 import psutil
