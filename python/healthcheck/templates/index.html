@@ -1,0 +1,77 @@
+{% extends 'layout.html' %} {% block body %} {% include 'includes/_navbar.html'
+%}
+<main class="mt-5 pt-5">
+  <div class="container">
+    <h1 class="text-center mb-5">Dashboard</h1>
+    <div class="row">
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">CPU Usage</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-25" id="cpu-usage"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">CPU Load Average</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-50" id="cpu-load"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">Memory Usage</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-25" id="memory-usage"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">Disk Usage</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-50" id="disk-usage"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">Reboot Required</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-25" id="reboot"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <h5 class="card-header">Internet Access</h5>
+          <div class="card-body">
+            <p class="card-text placeholder-glow">
+              <span class="placeholder w-25" id="internet"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
