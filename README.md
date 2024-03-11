@@ -34,10 +34,6 @@ Based on rsync, this script features more robust log generation and can be easil
 
 ## Python
 
-### Backup Linux
-
-Platform-agnostic backup utilty. Coming Soon!
-
 ### Video Encoder
 
 Batch-processing video encoder. Can detect whether videos are a movie or tv episode, rename it with encoder data, and output to a separate directory.
