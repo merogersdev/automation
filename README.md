@@ -62,6 +62,14 @@ Multithreaded rsync script, written in Python. Script provides a more efficient 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/python/multisync/multisync.py)
 [README](https://github.com/merogersdev/automation/blob/main/python/multisync/README.md)
 
+### VM App Deployment
+
+Automate setup and deployment of full-stack apps to VM services like AWS EC2, Azure, Digital Ocean...etc. Sets up Ubuntu VM with Nginx, Node.js LTS, SSH Key, PM2 and certbot for SSL certificate. Includes deploy script for CI/CD pipeline.
+
+[INIT CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/vm/init.sh)
+[DEPLOY CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/vm/deploy.sh)
+[README](https://github.com/merogersdev/automation/blob/main/bash/vm/README.md)
+
 ## PowerShell
 
 ### Backup Script (Windows)
