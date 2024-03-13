@@ -11,12 +11,19 @@ Automated installation script to install Arch Linux, with choice of Gnome or KDE
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/arch_install/arch_install.sh)
 [README](https://github.com/merogersdev/automation/blob/main/bash/arch_install/README.md)
 
-### Developer Environment Setup
+### Developer Environment Setup (Ubuntu)
 
 Automated installer for NVM, Docker, custom Bash Prompt, VS Code, popular VS Code extensions, VS Code user settings, Google Chrome, and the Hack Nerd Font on Ubuntu-based linux systems.
 
 [CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/dev_setup/dev_setup.sh)
 [README](https://github.com/merogersdev/automation/blob/main/bash/dev_setup/dev_setup.md)
+
+### Developer Environment Setup (Ubuntu WSL)
+
+Installs Docker, Node Version Manager, and custom bash prompt in WSL2 Ubuntu environment.
+
+[CODE](https://raw.githubusercontent.com/merogersdev/automation/main/bash/wsl_setup/wsl_setup.sh)
+[README](https://github.com/merogersdev/automation/blob/main/bash/wsl_setup/README.md)
 
 ### Custom Bash Prompt
 
