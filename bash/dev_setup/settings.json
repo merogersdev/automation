@@ -1,10 +1,14 @@
 {
-    "workbench.colorTheme": "One Dark Pro",
-    "workbench.iconTheme": "material-icon-theme",
-    "editor.fontFamily": "'Hack Nerd Font', monospace",
-    "editor.tabSize": 2,
-    "editor.wordWrap": "on",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "workbench.startupEditor": "none"
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontFamily": "'Hack Nerd Font', monospace",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "workbench.startupEditor": "none",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true
+  }
 }
