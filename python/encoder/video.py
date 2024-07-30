@@ -1,9 +1,6 @@
-
 from os import path, remove
-# import re
 from subprocess import run, CalledProcessError
 from sys import exit
-from shutil import which
 
 from utils import get_resolution, rename_video, sort_files
 

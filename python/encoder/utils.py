@@ -12,7 +12,8 @@ def rename_video(file, encoder_info):
 
     replacements = [
         (" ", "."),
-        (special_regex, "")
+        (special_regex, ""),
+        (r"[\.]{2,}", ".")
     ]
 
     if episode != None:
@@ -20,6 +21,7 @@ def rename_video(file, encoder_info):
         new_title = file_segments[0]
         for old, new in replacements:
             new_title = sub(old, new, new_title)
+
         return f"{new_title}{episode.group()}{encoder_info}"
     file_segments = split(year_regex, file)
     new_title = file_segments[0]
