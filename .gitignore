@@ -3,6 +3,7 @@ out
 src
 dest
 *.mkv
+*.mp4
 
 *.log
 .venv
