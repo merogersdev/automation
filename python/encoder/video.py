@@ -43,6 +43,8 @@ def encode_video_roku(input_file, output_file):
         "256k",
         "-ac:a:1",
         "6",
+        "-stats_period",
+        "5",
         "-n",
         output_file
     ]
