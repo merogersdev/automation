@@ -17,7 +17,7 @@ def rename_video(file, encoder_info):
     ]
 
     # If no year present in filename, just omit
-    if year.group == None:
+    if year == None:
         year_made = ""
     else:
         year_made = year.group()
