@@ -1,9 +1,8 @@
 #! /usr/bin/env python3
 
-# Version 1.7
+# Version 1.7.1
 
-import logging
-from sys import argv, exit, stdout
+from sys import argv, exit
 import os
 from shutil import which
 
