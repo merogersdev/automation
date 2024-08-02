@@ -4,7 +4,7 @@ from os import scandir
 
 def rename_video(file, encoder_info):
     # Renames video based on type of file - eg. tv episode or video
-    episode_regex = r"\w{1}\d{2}\w{1}\d{2}"
+    episode_regex = r"\w{0,1}\d{1,2}\w{1}\d{2}"
     episode = search(episode_regex, file)
     year_regex = r"\d{4}"
     year = search(year_regex, file)
@@ -15,6 +15,12 @@ def rename_video(file, encoder_info):
         (special_regex, ""),
         (r"[\.]{2,}", ".")
     ]
+
+    # If no year present in filename, just omit
+    if year == None:
+        year_made = ""
+    else:
+        year_made = year.group()
 
     if episode != None:
         file_segments = split(episode_regex, file)
@@ -27,7 +33,7 @@ def rename_video(file, encoder_info):
     new_title = file_segments[0]
     for old, new in replacements:
         new_title = sub(old, new, new_title)
-    return f"{new_title}{year.group()}{encoder_info}"
+    return f"{new_title}{year_made}{encoder_info}"
 
 
 def get_resolution(filename):
