@@ -16,6 +16,12 @@ def rename_video(file, encoder_info):
         (r"[\.]{2,}", ".")
     ]
 
+    # If no year present in filename, just omit
+    if year.group == None:
+        year_made = ""
+    else:
+        year_made = year.group()
+
     if episode != None:
         file_segments = split(episode_regex, file)
         new_title = file_segments[0]
@@ -27,7 +33,7 @@ def rename_video(file, encoder_info):
     new_title = file_segments[0]
     for old, new in replacements:
         new_title = sub(old, new, new_title)
-    return f"{new_title}{year.group()}{encoder_info}"
+    return f"{new_title}{year_made}{encoder_info}"
 
 
 def get_resolution(filename):
