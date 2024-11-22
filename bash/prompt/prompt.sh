@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 
-# Version 1.2
+# Version 1.2.1
 
 function check_git_installed {
   if git --version &>/dev/null;
@@ -27,7 +27,7 @@ function get_git_prompt {
 
 function custom_prompt {
   # Set Colors
-  local DIR_COLOR="\[\033[01;34m\]" # Blue
+  local DIR_COLOR="\[\033[0;94m\]" # Light Blue
   local GIT_COLOR="\[\033[00;90m\]" # Gray
   local ARROW_COLOR="\[\033[01;35m\]" # Magenta
   local TEXT_COLOR="\[\033[00;00m\]" # White
@@ -38,7 +38,6 @@ function custom_prompt {
 
   # Define Segments (Directory, Git Branch & Status, User Prompt)
   local DIRECTORY="$DIR_COLOR\w"
-  #local GIT_PROMPT="$GIT_COLOR\$($GIT_FILES $GIT_DIRTY __git_ps1)"
   local GIT_PROMPT="$GIT_COLOR\$($GIT_FILES $GIT_DIRTY __git_ps1)"
   local USER_PROMPT="\n$ARROW_COLOR❯ $TEXT_COLOR"
 
