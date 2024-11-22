@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Version 1.7.1
+# Version 1.7.2
 
 from sys import argv, exit
 import os
@@ -11,9 +11,8 @@ from log import logger
 
 
 def main():
-    print(argv)
 
-    # Check for correct number of arguments
+   # Check for correct number of arguments
     if len(argv) != 3:
         logger.critical(
             "Invalid arguments specified.\nUsage: ./encoder.py /in/folder/ /out/folder")
