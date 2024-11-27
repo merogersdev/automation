@@ -48,9 +48,9 @@ function custom_prompt {
   if check_git_installed -eq 0;
   then
     get_git_prompt
-    export PS1="\n$DIRECTORY $GIT_PROMPT $USER_PROMPT"
+    export PS1="\n$DIRECTORY$GIT_PROMPT $USER_PROMPT"
   else
-    export PS1="\n$DIRECTORY $USER_PROMPT"
+    export PS1="\n$DIRECTORY$USER_PROMPT"
   fi
 }
 
